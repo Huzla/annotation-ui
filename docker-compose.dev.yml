@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  ng:
+    build: 
+        context: .
+        dockerfile: Dockerfile.dev
+    image: annotator-ui-dev:0.0.1
+    command: ng server --open
+    ports:
+      - 4200:4200
+    volumes: 
+      - ./:/app/
+
