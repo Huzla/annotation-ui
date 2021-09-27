@@ -1,0 +1,13 @@
+
+h3 {
+    padding: 1rem;
+}
+
+.domain-info-header {
+    text-align: end;
+    text-decoration: underline;
+}
+
+.domain-info {
+    text-align: start;
+}

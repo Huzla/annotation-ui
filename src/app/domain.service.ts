@@ -17,4 +17,8 @@ export class DomainService {
     return of(this.dummyDomains);
   }
 
+  getDomainById(id: number): Observable<Domain | null> {
+    return of(this.dummyDomains.find(d => d.id === id) || null);
+  }
+
 }

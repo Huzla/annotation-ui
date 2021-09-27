@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+h1, h2, h3, h4, h5 {
+    color: white;
+    text-align: center;
+    background-color: #1f2d40;
+    padding: 2rem;
+    margin-top: 0;
+}
