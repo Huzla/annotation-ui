@@ -7,7 +7,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import { AppComponent } from './app.component';
 import { DomainsComponent } from './domains/domains.component';
 import { SectionedItemComponent } from './sectioned-item/sectioned-item.component';
-import { DomainToItemPipe } from './pipes';
+import { AnnotationToItemPipe, DomainToItemPipe } from './pipes';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
 
 @NgModule({
@@ -16,6 +16,7 @@ import { DomainAnnotationsComponent } from './domain-annotations/domain-annotati
     DomainsComponent,
     SectionedItemComponent,
     DomainToItemPipe,
+    AnnotationToItemPipe,
     DomainAnnotationsComponent
   ],
   imports: [

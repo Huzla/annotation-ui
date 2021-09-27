@@ -19,4 +19,11 @@
     <div class="col-2">
         <h3 class="domain-info">{{ domain.groups }}</h3>
     </div>
+    <div class=col-12>
+        <div class="flex align-items-center flex-column annotation-group">
+            <div *ngFor="let annos of annotations" class="annotation-item">
+                <app-sectioned-item class="annotation-item" *ngFor="let anno of annos"  [item]="anno | annotationToItem"></app-sectioned-item>
+            </div>
+        </div>
+    </div>
 </div>

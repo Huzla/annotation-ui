@@ -11,3 +11,12 @@ h3 {
 .domain-info {
     text-align: start;
 }
+
+.annotation-group {
+    width: 100%;
+}
+
+.annotation-item {
+    margin: 1rem;
+    width: 90%;
+}
