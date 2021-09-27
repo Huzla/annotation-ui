@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { Router, RoutesRecognized } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,15 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private primengConfig: PrimeNGConfig) {}
-  
   title = 'annotator';
+  heading = 'You are lost!';
+
+  constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(data => {
+      if (data instanceof RoutesRecognized && data.state.root.firstChild !== null)
+        this.heading = data.state.root.firstChild.data.heading;
+    });
+  }
 }
