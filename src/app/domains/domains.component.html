@@ -1,4 +1,3 @@
 <div class="flex align-items-center flex-column">
-    <div class="mb-2"> <button pButton type="button" label="Middle" ></button></div>
-    <div class="mb-2"> <button pButton type="button" label="Middle" ></button></div>
+    <app-sectioned-item class="domain-item" *ngFor="let domain of domains" [item]="domain | domainToItem"></app-sectioned-item>
 </div>
