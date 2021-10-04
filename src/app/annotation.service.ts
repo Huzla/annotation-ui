@@ -13,7 +13,7 @@ export class AnnotationService {
     { id: 4, url: "https://yle.fi/2/test4", group: 2, classes: ['comments', 'sports-stuff', 'stats'] , domain: 1 },
     { id: 5, url: "https://yle.fi/2/test5", group: 2, classes: ['comments', 'sports-stuff', 'stats'] , domain: 1 },
     { id: 6, url: "https://yle.fi/3/test6", group: 3, classes: ['table-of-stats'] , domain: 1 },
-    { id: 7, url: "https://kauppa.fi/products/phones/123456", group: 1, classes: ['product-name', 'product-description', 'price-value'], domain: 2 },
+    { id: 7, url: "https://kauppa.fi/products/phones/123456", group: 1, classes: ['product-name', 'product-description', 'price-value'], domain: 3 },
   ]
   
   constructor() { }
