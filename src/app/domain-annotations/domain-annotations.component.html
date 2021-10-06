@@ -7,6 +7,10 @@
     routerLink="/"></button>
 </div>
 
+<p *ngIf="!annotations.length" class="no-data-message">
+    No target documents available.
+</p>
+
 <div class="grid">
     <div class="col-2">
         <h3 class="header domain-info-header">Name:</h3>

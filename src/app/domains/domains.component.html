@@ -1,3 +1,6 @@
 <div class="flex align-items-center flex-column">
+    <p *ngIf="!domains.length" class="no-data-message">
+        No domains available.
+    </p>
     <app-sectioned-item class="domain-item" *ngFor="let domain of domains" [item]="domain | domainToItem"></app-sectioned-item>
 </div>

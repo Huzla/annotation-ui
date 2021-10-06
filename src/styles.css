@@ -1,10 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+
 
 h1, h2, h3, h4, h5 {
     color: white;
     text-align: center;
+    font-family: "Oxygen", Arial, Helvetica, sans-serif;
     padding: 2rem;
     margin-top: 0;
+}
+
+p {
+    color: white;
+    font-family: "Oxygen", Arial, Helvetica, sans-serif;
+}
+
+.no-data-message {
+    display: flex;
+    height: 70vh;
+    font-style: oblique;
+    font-size: 2rem;
+    text-align: center;
+    align-items: center;
 }
 
 .return {

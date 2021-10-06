@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 import {ToolbarModule} from 'primeng/toolbar';
 import { AppComponent } from './app.component';
 import { DomainsComponent } from './domains/domains.component';
 import { SectionedItemComponent } from './sectioned-item/sectioned-item.component';
 import { AnnotationToItemPipe, DomainToItemPipe } from './pipes';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -23,9 +25,10 @@ import { DomainAnnotationsComponent } from './domain-annotations/domain-annotati
     BrowserModule,
     AppRoutingModule,
     ButtonModule,
-    ToolbarModule
+    ToolbarModule,
+    MessageModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
