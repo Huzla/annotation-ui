@@ -1,6 +1,7 @@
 
 <div *ngIf="item" class="grid">
     <div *ngIf="item.badge !== undefined" class="col-1 sectioned-item-badge">{{ item.badge }}</div>
-    <button pButton routerLink="/domains/{{ item.id }}" type="button" class="col-10 p-button-{{ item.colorClass }}"  label="{{ item.mainContent }}" ></button>
+    <button pButton routerLink="{{ item.link }}" icon="pi" type="button" class="col-10 p-button-{{ item.colorClass }}" label="{{ item.mainContent }}" >
+    </button>
     <div *ngIf="item.extraContent" class="col-1 sectioned-item-extra-content">{{ item.extraContent }}</div>
 </div>

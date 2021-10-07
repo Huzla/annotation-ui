@@ -12,11 +12,34 @@ h3 {
     text-align: start;
 }
 
-.annotation-group {
-    width: 100%;
+.data-table {
 }
 
-.annotation-item {
-    margin: 1rem;
-    width: 90%;
+.grid {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loading-spinner {
+    font-size: 5rem;
+    color: white;
+}
+
+/deep/ .p-virtualscroller, 
+/deep/ .p-virtualscroller-content, 
+/deep/ .p-virtualscroller-list, 
+/deep/ cdk-virtual-scroll-viewport {
+    background-color: #17212f;
+}
+
+.scroller-container {
+    height: 100%;
+}
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
 }

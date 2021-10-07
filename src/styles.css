@@ -18,6 +18,7 @@ p {
 .no-data-message {
     display: flex;
     height: 70vh;
+    width: 100%;
     font-style: oblique;
     font-size: 2rem;
     text-align: center;

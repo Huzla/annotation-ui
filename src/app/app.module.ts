@@ -11,6 +11,7 @@ import { SectionedItemComponent } from './sectioned-item/sectioned-item.componen
 import { AnnotationToItemPipe, DomainToItemPipe } from './pipes';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
 import { MessageService } from 'primeng/api';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MessageService } from 'primeng/api';
     AppRoutingModule,
     ButtonModule,
     ToolbarModule,
-    MessageModule
+    MessageModule,
+    VirtualScrollerModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

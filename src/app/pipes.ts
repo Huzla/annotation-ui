@@ -11,7 +11,8 @@ export class DomainToItemPipe implements PipeTransform {
             badge: domain.groups,
             colorClass: (domain.groups > 0) ? 'primary' : 'secondary',
             mainContent: domain.name,
-            extraContent: domain.index_page
+            extraContent: `Documents: ${ domain.annotations }`,
+            link: `/domains/${ domain.id }`
         }
     }
 }
@@ -23,8 +24,9 @@ export class AnnotationToItemPipe implements PipeTransform {
             id: anno.id,
             badge: anno.group,
             colorClass: (anno.group > 0) ? 'primary' : 'secondary',
-            mainContent: anno.url,
-            extraContent: anno.classes.join(",")
+            mainContent: new URL(anno.url).toString(),
+            extraContent: anno.classes.join(","),
+            link: `/domains/${ anno.domain }/${ anno.id }`
         }
     }
 }

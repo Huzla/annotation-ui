@@ -4,4 +4,5 @@ export interface SectionedItem {
     colorClass: string;
     mainContent: string;
     extraContent?: string;
+    link: string;
 }

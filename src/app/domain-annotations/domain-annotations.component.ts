@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Annotation, GroupedAnnotations } from '../annotation';
+import { LazyLoadEvent } from 'primeng/api';
+import { Annotation } from '../annotation';
 import { AnnotationService } from '../annotation.service';
 import { Domain } from '../domain';
 import { DomainService } from '../domain.service';
@@ -11,8 +12,14 @@ import { DomainService } from '../domain.service';
   styleUrls: ['./domain-annotations.component.css']
 })
 export class DomainAnnotationsComponent implements OnInit {
-  domain: Domain = { id: 1, name: '', index_page: '', annotations: [], groups: 0 };
-  annotations: GroupedAnnotations = [];
+  domain?: Omit<Domain, "annotations">;
+  annotations: Array<Annotation[]> = [];
+  loaders: Function[] = [];
+
+  annotationGroups: number[] = [];
+
+  loading: Boolean[] = [];
+  
 
   constructor(private route: ActivatedRoute, private domainService: DomainService, private annotationService: AnnotationService) { }
 
@@ -20,32 +27,56 @@ export class DomainAnnotationsComponent implements OnInit {
     this.getDomain();
   }
 
+
   private getDomain(): void {
     this.domainService
-      .getDomainById(Number(this.route.snapshot.paramMap.get('id')))
-      .subscribe(domain => {
-        if (domain !== null) {
-          this.domain = domain;
-          this.getAnnotations();
-        }
-      });
+    .getDomainById(Number(this.route.snapshot.paramMap.get('id')))
+    .subscribe(async domain => {
+
+      // create lazy load handlers for each scroller.
+      this.loaders = Array.from(Array(domain.groups + 1).keys())
+      .map((group: number) => this.getAnnotationsFactory(group));
+
+      // This array is used for creating a variable amount of virtual scrollers.
+      // Making the loop indpenendet of the data arrays created later ensures that the loop won't rerender the scrollers
+      // when data is modified.
+      this.annotationGroups = Array.from(Array(domain.groups + 1).keys());
+
+      // Create fixed sized arrays for the scrollers.
+      const sizes = await Promise.all(this.annotationGroups.map(group => this.annotationService.getDomainGroupSize(domain.id, group).toPromise()));
+
+      this.annotations = sizes.map(({ count }) => Array(count));
+
+
+      this.loading = Array(domain.groups + 1).fill(true);
+
+      this.domain = domain;
+    });
   }
 
-  private getAnnotations(): void {
-    this.annotationService
-      .getDomainAnnotations(this.domain.id)
-      .subscribe(annos => {
-        annos.sort((a, b) => a.group - b.group);
+  private getAnnotationsFactory(group: number): Function {
 
-        this.annotations = annos.reduce((grouped, anno) => {
-          if (grouped.length > 0 && anno.group === grouped[grouped.length - 1][0].group)
-            grouped[grouped.length - 1].push(anno);
-          else
-            grouped.push([anno]);
+    return async (event: LazyLoadEvent) => {
+      this.loading[group] = true;
 
-          return grouped;
-        }, this.annotations);
-      });
+      console.log(event);
+
+      if (this.domain && event.first !== undefined && event.rows !== undefined) {
+        const annotations = await this.annotationService
+          .getDomainAnnotationsSlice(this.domain.id, group, event.first, event.rows)
+          .toPromise();
+
+          console.log(this.annotations);
+
+          this.loading[group] = false;
+
+          Array.prototype.splice.apply(this.annotations[group], [(event.first as number), (event.rows as number), ...annotations]);
+
+          this.annotations[group] = [...this.annotations[group]];
+      }
+        
+    }
+      
   }
 
 }

@@ -6,4 +6,8 @@ export interface Annotation {
     classes: string[];
 }
 
-export type GroupedAnnotations = Array<Annotation[]>
+export interface AnnotationLoadRequest {
+    group: number;
+    start: number;
+    rows: number;
+}

@@ -10,6 +10,10 @@
     border-radius: 4px 0 0 4px;
 }
 
+.sectioned-item-main-content {
+    text-align: center;
+}
+
 .sectioned-item-extra-content {
     display: inline-block;
     color: white;

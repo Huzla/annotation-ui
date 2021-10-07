@@ -7,11 +7,11 @@
     routerLink="/"></button>
 </div>
 
-<p *ngIf="!annotations.length" class="no-data-message">
-    No target documents available.
-</p>
+<div *ngIf="domain === undefined" class="spinner-wrapper">
+    <i class="pi pi-spin pi-spinner loading-spinner"></i>
+</div>
 
-<div class="grid">
+<div *ngIf="domain" class="grid">
     <div class="col-2">
         <h3 class="header domain-info-header">Name:</h3>
     </div>
@@ -32,11 +32,23 @@
     <div class="col-2">
         <h3 class="domain-info">{{ domain.groups }}</h3>
     </div>
-    <div class=col-12>
-        <div class="flex align-items-center flex-column annotation-group">
-            <div *ngFor="let annos of annotations" class="annotation-item">
-                <app-sectioned-item class="annotation-item" *ngFor="let anno of annos"  [item]="anno | annotationToItem"></app-sectioned-item>
-            </div>
-        </div>
+    <div class="col-8 scroller-container">
+        <ng-container *ngFor="let annoIndex of annotationGroups">
+            <p-virtualScroller 
+                [value]="annotations[annoIndex]"
+                scrollHeight="500px" 
+                [itemSize]="80"
+                [lazy]="true" 
+                (onLazyLoad)="loaders[annoIndex]($event)"
+                [rows]="50"> 
+                <ng-template pTemplate="item" let-annotation>
+                    <app-sectioned-item class="annotation-item" [item]="annotation | annotationToItem"></app-sectioned-item>
+                </ng-template>
+
+                <ng-template let-annotation pTemplate="loadingItem">
+                    <i class="pi pi-spin pi-spinner loading-spinner"></i>
+                </ng-template>
+            </p-virtualScroller>
+        </ng-container>
     </div>
 </div>
