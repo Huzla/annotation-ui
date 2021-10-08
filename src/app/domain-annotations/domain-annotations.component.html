@@ -33,7 +33,7 @@
         <h3 class="domain-info">{{ domain.groups }}</h3>
     </div>
     <div class="col-8 scroller-container">
-        <ng-container *ngFor="let annoIndex of annotationGroups">
+        <div *ngFor="let annoIndex of annotationGroups" class="annotation-list">
             <p-virtualScroller 
                 [value]="annotations[annoIndex]"
                 scrollHeight="500px" 
@@ -49,6 +49,6 @@
                     <i class="pi pi-spin pi-spinner loading-spinner"></i>
                 </ng-template>
             </p-virtualScroller>
-        </ng-container>
+        </div>
     </div>
 </div>

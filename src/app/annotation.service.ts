@@ -26,4 +26,8 @@ export class AnnotationService {
   getDomainGroupSize(id: number, group: number): Observable<{ count: number }> {
     return this.http.get<{ count: number }>(`${ this.domainsUrl }/${ id }/groups/${ group }/count`);
   }
+
+  getAnnotationById(domainId: number, annotationId: number): Observable<Annotation> {
+    return this.http.get<Annotation>(`${ this.domainsUrl }/${ domainId }/${ annotationId }`);
+  }
 }
