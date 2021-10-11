@@ -3,6 +3,7 @@ export interface Annotation {
     domain: number;
     url: string;
     group: number;
+    document: string;
     classes: string[];
 }
 

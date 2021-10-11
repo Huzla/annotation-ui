@@ -23,7 +23,6 @@ h3 {
 
 .loading-spinner {
     font-size: 5rem;
-    color: white;
 }
 
 /deep/ .p-virtualscroller, 

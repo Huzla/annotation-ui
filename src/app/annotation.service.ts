@@ -11,6 +11,7 @@ import { Annotation } from './annotation';
 export class AnnotationService {
   private domainsUrl = `${ environment.apiUrl }/domains`;
 
+
   constructor(
     private http: HttpClient
   ) { }

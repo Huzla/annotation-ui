@@ -1,0 +1,48 @@
+<div class="return">
+    <button pButton 
+    class="p-button-outlined" 
+    type="button" 
+    icon="pi pi-arrow-left" 
+    iconPos="left"
+    routerLink="/domains/{{ domainId }}"></button>
+</div>
+
+<div *ngIf="annotation === undefined" class="spinner-wrapper">
+    <i class="pi pi-spin pi-spinner loading-spinner"></i>
+</div>
+
+<div *ngIf="annotation" class="flex flex-column annotation-wrapper">
+    <div class="info-bar">
+        <h3 class="header annotation-info-header">URL:</h3>
+        <h3 class="annotation-info">{{ annotation.url }}</h3>
+        <h3 class="header annotation-info-header">Group Selection:</h3>
+        <div class="group-button-wrapper">
+            <ng-container *ngFor="let group of groups">
+                <button pButton
+                type="button" 
+                class="p-button{{ (selectedGroup === group) ? '' : '-outlined' }} p-button-{{ (selectedGroup === group) ? 'warning' : 'secondary' }} group-button"
+                label="1"></button>
+            </ng-container>
+            <button pButton type="button"
+            class="p-button{{ (selectedGroup === -1) ? '' : '-outlined' }} p-button-{{ (selectedGroup === -1) ? 'warning' : 'help' }}"
+            label="New"
+            (click)="selectGroup(-1)"></button>
+        </div>
+    </div>
+    
+    <div class="document-wrapper">
+        <app-annotation-document
+            class="document-container"
+            (classesEvent)="updateClassList($event)"
+            [documentUrl]="documentUrl"></app-annotation-document>
+        <div class="class-list">
+            <span *ngFor="let class of cssClasses">
+                <button pButton
+                type="button" 
+                class="p-button-secondary p-button-outlined"
+                label="{{ class }}">
+                </button>
+            </span>
+        </div>
+    </div>
+</div>

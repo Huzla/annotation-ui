@@ -12,6 +12,8 @@ import { AnnotationToItemPipe, DomainToItemPipe } from './pipes';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
 import { MessageService } from 'primeng/api';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { AnnotationComponent } from './annotation/annotation.component';
+import { AnnotationDocumentComponent } from './annotation-document/annotation-document.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     SectionedItemComponent,
     DomainToItemPipe,
     AnnotationToItemPipe,
-    DomainAnnotationsComponent
+    DomainAnnotationsComponent,
+    AnnotationComponent,
+    AnnotationDocumentComponent
   ],
   imports: [
     BrowserModule,
