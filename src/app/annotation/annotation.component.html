@@ -24,7 +24,7 @@
                 label="1"></button>
             </ng-container>
             <button pButton type="button"
-            class="p-button{{ (selectedGroup === -1) ? '' : '-outlined' }} p-button-{{ (selectedGroup === -1) ? 'warning' : 'help' }}"
+            class="p-button{{ (selectedGroup === -1) ? '' : '-outlined' }} p-button-{{ (selectedGroup === -1) ? 'warning' : 'help' }} group-button"
             label="New"
             (click)="selectGroup(-1)"></button>
         </div>
@@ -34,13 +34,18 @@
         <app-annotation-document
             class="document-container"
             (classesEvent)="updateClassList($event)"
+            [classInFocus]="classInFocusSubject"
+            [classAdd]="classAddSubject"
+            [classDelete]="classDeleteSubject"
             [documentUrl]="documentUrl"></app-annotation-document>
         <div class="class-list">
             <span *ngFor="let class of cssClasses">
                 <button pButton
                 type="button" 
-                class="p-button-secondary p-button-outlined"
-                label="{{ class }}">
+                class="p-button-{{ determineClassColor(class) }} class-button"
+                label="{{ class }}"
+                (mouseover)="focusOnClass(class)"
+                (click)="toggleSelection(class)">
                 </button>
             </span>
         </div>

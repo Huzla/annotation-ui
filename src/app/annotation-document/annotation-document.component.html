@@ -1,1 +1,7 @@
-<iframe #iframe [src]="_safeUrl" style="width: 100%; height: 100%; background-color: white;"></iframe>
+<iframe #iframe [src]="_safeUrl" style="width: 100%; height: 100%; background-color: white;" (load)="outputClasses()">
+<style>
+.focused-item {
+filter: invert(100%);
+}
+</style>
+</iframe>
