@@ -1,5 +1,13 @@
+.sectioned-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-height: 3rem;
+}
+
 .sectioned-item-badge {
     display: inline-block;
+    width: 10%;
     color: white;
     text-align: center;
     display: flex;
@@ -11,17 +19,20 @@
 }
 
 .sectioned-item-main-content {
+    width: 70%;
     text-align: center;
 }
 
 .sectioned-item-extra-content {
+    width: 20%;
     display: inline-block;
     color: white;
     text-align: center;
     font-family: "Oxygen", Arial, Helvetica, sans-serif;
     background-color:#405061;
-    line-height: 1em;
+    line-height: 1.0rem;
     border-radius: 0 4px 4px 0;
+    overflow-y: hidden;
 }
 
 .p-button {

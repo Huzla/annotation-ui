@@ -21,12 +21,27 @@
                 <button pButton
                 type="button" 
                 class="p-button{{ (selectedGroup === group) ? '' : '-outlined' }} p-button-{{ (selectedGroup === group) ? 'warning' : 'secondary' }} group-button"
-                label="1"></button>
+                (click)="selectGroup(group)"
+                label="{{ group }}"></button>
             </ng-container>
+
             <button pButton type="button"
-            class="p-button{{ (selectedGroup === -1) ? '' : '-outlined' }} p-button-{{ (selectedGroup === -1) ? 'warning' : 'help' }} group-button"
-            label="New"
-            (click)="selectGroup(-1)"></button>
+            class="p-button{{ (selectedGroup === groups.length + 1) ? '' : '-outlined' }} p-button-{{ (selectedGroup === groups.length + 1) ? 'warning' : 'help' }} group-button"
+            label="{{ groups.length + 1 }}"
+            (click)="selectGroup(groups.length + 1)"></button>
+
+        </div>
+        <div class="action-button-wrapper">
+            <button pButton type="button"
+            class="p-button group-button"
+            (click)="sendModifications()"
+            label="Done"
+            ></button>
+            <button pButton type="button"
+            class="p-button-outlined p-button-secondary group-button"
+            routerLink="/domains/{{ domainId }}"
+            label="Cancel"
+            ></button>
         </div>
     </div>
     

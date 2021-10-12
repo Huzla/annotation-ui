@@ -29,7 +29,16 @@
 
 .group-button-wrapper {
     box-sizing: border-box;
-    width: 80%;
+    width: 50%;
+    overflow-x: scroll;
+}
+
+.action-button-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    width: 29%;
+    padding-bottom: 1rem;
 }
 
 .group-button {

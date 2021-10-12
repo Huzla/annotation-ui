@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { PopulatedDomain } from './domain';
 import { Annotation } from './annotation';
@@ -10,7 +10,9 @@ import { Annotation } from './annotation';
 })
 export class AnnotationService {
   private domainsUrl = `${ environment.apiUrl }/domains`;
-
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(
     private http: HttpClient
@@ -30,5 +32,9 @@ export class AnnotationService {
 
   getAnnotationById(domainId: number, annotationId: number): Observable<Annotation> {
     return this.http.get<Annotation>(`${ this.domainsUrl }/${ domainId }/${ annotationId }`);
+  }
+
+  putAnnotation(annotation: Annotation) {
+    return this.http.put<Annotation>(`${ this.domainsUrl }/${ annotation.domain }/${ annotation.id }`, annotation, this.httpOptions);
   }
 }

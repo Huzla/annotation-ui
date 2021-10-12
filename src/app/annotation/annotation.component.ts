@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Annotation } from '../annotation';
@@ -31,6 +31,7 @@ export class AnnotationComponent implements OnInit {
   cssClasses: Set<string> = new Set();
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private annotationService: AnnotationService,
     private domainService: DomainService) { }
 
@@ -48,6 +49,8 @@ export class AnnotationComponent implements OnInit {
       .getAnnotationById(this.domainId, this.annotationId)
       .toPromise();
 
+    this.selectedGroup = this.annotation.group;
+    
     if (this.annotation.classes.length) {
       this.selectedClasses = new Set(this.annotation.classes);  
     }
@@ -55,7 +58,11 @@ export class AnnotationComponent implements OnInit {
   }
 
   private async getDomain(): Promise<void> {
-    this.groups = Array.from(Array((await this.domainService.getDomainById(this.domainId).toPromise()).groups).keys());
+    this.groups = Array.from(
+      Array((await this.domainService.getDomainById(this.domainId).toPromise()).groups)
+      .keys()
+    )
+    .map((group: number) => group + 1);
   }
 
   selectGroup(group: number): void {
@@ -94,6 +101,20 @@ export class AnnotationComponent implements OnInit {
     }
     else {
       return 'secondary';
+    }
+  }
+
+  async sendModifications(): Promise<void> {
+    //TODO: Add error messaging.
+    if (this.selectedGroup > 0 && this.annotation) {
+      await this.annotationService.putAnnotation({ 
+        ...this.annotation, 
+        domain: this.domainId,
+        group: this.selectedGroup, 
+        classes: Array.from(this.selectedClasses).filter((s: string) => s !== '')
+      }).toPromise();
+
+      this.router.navigate([`/domains/${ this.domainId }`])
     }
   }
 
