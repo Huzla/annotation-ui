@@ -50,9 +50,9 @@ export class AnnotationComponent implements OnInit {
       .toPromise();
 
     this.selectedGroup = this.annotation.group;
-    
+
     if (this.annotation.classes.length) {
-      this.selectedClasses = new Set(this.annotation.classes);  
+      this.selectedClasses = new Set(this.annotation.classes);
     }
   
   }
@@ -71,6 +71,10 @@ export class AnnotationComponent implements OnInit {
 
   updateClassList(classes: Set<string>): void {
     this.cssClasses = classes;
+
+    this.selectedClasses.forEach((c: string) => {
+      this.classAddSubject.next(c);
+    });
   }
 
   focusOnClass(c: string): void {
