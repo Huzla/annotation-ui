@@ -41,7 +41,10 @@ export class AnnotationDocumentComponent implements OnInit {
     }));
 
     this.subscriptions.push(this.classAdd.subscribe((className: string) => {
-      this.addClassToIframe(className, selectedClass);
+      if (className) {
+        this.addClassToIframe(className, selectedClass);
+      }
+
     }));
 
     this.subscriptions.push(this.classDelete.subscribe((className: string) => {
@@ -54,18 +57,16 @@ export class AnnotationDocumentComponent implements OnInit {
   }
 
   private removeClassFromIframe(target: string, className: string): void {
-    this.iframe.nativeElement.contentDocument
-        .querySelectorAll(this.stringToClassSelector(target))
-        .forEach((element: HTMLElement) => {
+    this.iframeQuerySelectorAll(target)
+        .forEach((element: Element) => {
           element.classList.remove(className);
         });
   }
 
   // Note that target can consist of multiple classes.
   private addClassToIframe(target: string, newClassName: string): void {
-    this.iframe.nativeElement.contentDocument
-        .querySelectorAll(this.stringToClassSelector(target))
-        .forEach((element: HTMLElement) => {
+    this.iframeQuerySelectorAll(target)
+        .forEach((element: Element) => {
           element.classList.add(newClassName);
         });
   }
@@ -75,21 +76,40 @@ export class AnnotationDocumentComponent implements OnInit {
   }
 
   private scrollTo(target: string) {
-    (this.iframe.nativeElement.contentDocument.querySelector(this.stringToClassSelector(target)) as Element).scrollIntoView(true);
+    const elem: Element | null = this.iframeQuerySelector(target);
+
+    if (elem)
+      elem.scrollIntoView(true);
+  }
+
+  private iframeQuerySelector(selectorString: string): Element | null {
+    try {
+      return this.iframe.nativeElement.contentDocument.querySelector(this.stringToClassSelector(selectorString));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  private iframeQuerySelectorAll(selectorString: string): Element[] {
+    try {
+      return this.iframe.nativeElement.contentDocument.querySelectorAll(this.stringToClassSelector(selectorString));
+    } catch (_) {
+      return [];
+    }
   }
 
   outputClasses(): void {
     const cssString = `
       .focused-item {
-          border: 1rem solid #00FFFF;
+          border: 1rem solid #d95f02;
+          background-color: #d95f029F;
           border-radius: 0.2rem;
-          filter: invert(100%);
       }
 
       .selected-item {
-        border: 1rem solid #00FF00;
+        border: 1rem solid #1b9e77;
         border-radius: 0.2rem;
-        background-color: #00FF00;
+        background-color: #1b9e77BF;
       }
     `;
 
@@ -101,7 +121,7 @@ export class AnnotationDocumentComponent implements OnInit {
     this.classesEvent.emit(
       new Set<string>(
       Array.from(this.iframe.nativeElement.contentDocument.querySelectorAll("*") as Array<HTMLElement>)
-      .map((element: HTMLElement) => element.getAttribute('class') || '')
+      .map((element: HTMLElement) => element.getAttribute('class')?.trim() || '')
       .filter((s: string) => s !== ''))
       );
   }

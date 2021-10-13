@@ -60,14 +60,10 @@ export class DomainAnnotationsComponent implements OnInit {
     return async (event: LazyLoadEvent) => {
       this.loading[group] = true;
 
-      console.log(event);
-
       if (this.domain && event.first !== undefined && event.rows !== undefined) {
         const annotations = await this.annotationService
           .getDomainAnnotationsSlice(this.domain.id, group, event.first, event.rows)
           .toPromise();
-
-          console.log(this.annotations);
 
           this.loading[group] = false;
 
